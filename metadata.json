@@ -1,0 +1,5 @@
+{
+  "name": "Mortgage Milestone Visualizer",
+  "description": "A web app that allows you to visualize your home mortgage payoff timeline, explore 'what if' scenarios with extra payments, and see key financial milestones alongside your personal life events for an enriched, personalized planning experience.",
+  "requestFramePermissions": []
+}
