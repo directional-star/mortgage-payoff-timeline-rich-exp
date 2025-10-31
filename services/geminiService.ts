@@ -84,10 +84,16 @@ export const getFinancialInsights = async (
             },
         });
         
-        const jsonText = response.text.trim();
+        const responseText = response.text.trim();
+        // The API can sometimes wrap the JSON in markdown code fences (```json ... ```).
+        // This regex robustly extracts the JSON content.
+        const jsonMatch = responseText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        const jsonText = jsonMatch ? jsonMatch[1] : responseText;
+
         const parsedResponse = JSON.parse(jsonText);
 
-        if (parsedResponse && parsedResponse.actionableAdvice && parsedResponse.futureConsiderations) {
+        // Stricter check to ensure the response has the correct shape.
+        if (parsedResponse && Array.isArray(parsedResponse.actionableAdvice) && Array.isArray(parsedResponse.futureConsiderations)) {
             return parsedResponse;
         }
 
